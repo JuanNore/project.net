@@ -13,33 +13,41 @@
             <div class="card">
                 <div class="car-body">
                     <h5 class="titulo">Agregar producto</h5>
-                    <form>
+                    <form [formGroup]="form" (ngSubmit="agregarTarjeta()")>
                         <div class="input-group input-group-lg mb-3">
                             <button class="btn btn-outline-secondary" type="button">
-                                <i class="fas fa-file-signature"></i>
+                                <i class="fas fa-file-signature"
+                                    [class.green-icon]="this.form.get('titulo')?.valid"
+                                    [class.red-icon]="this.form.get('titulo')?.invalid && this.form.get('titulo')?.touched"></i>
                             </button>
-                            <input type="text" class="form-control" placeholder="Titulo" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                            <input formControlName="titulo" type="text" class="form-control" placeholder="Titulo" aria-label="Example text with button addon" aria-describedby="button-addon1">
                         </div>
                         <div class="input-group input-group-lg mb-3">
                             <button class="btn btn-outline-secondary" type="button">
-                                <i class="far fa-calendar-alt"></i>
+                                <i class="far fa-calendar-alt"
+                                    [class.green-icon]="this.form.get('fechaCreacion')?.valid"
+                                    [class.red-icon]="this.form.get('fechaCreacion')?.invalid && this.form.get('fechaCreacion')?.touched"></i>
                             </button>
-                            <input type="text" class="form-control" placeholder="AA/MM/DD" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                            <input formControlName="fechaCreacion" maxlength="10" type="text" class="form-control" placeholder="AA/MM/DD" aria-label="Example text with button addon" aria-describedby="button-addon1">
                         </div>
                         <div class="input-group input-group-lg mb-3">
                             <button class="btn btn-outline-secondary" type="button">
-                                <i class="fas fa-qrcode"></i>
+                                <i class="fas fa-qrcode"
+                                    [class.green-icon]="this.form.get('codigo')?.valid"
+                                    [class.red-icon]="this.form.get('codigo')?.invalid && this.form.get('codigo')?.touched"></i>
                             </button>
-                            <input type="text" class="form-control" placeholder="Codigo" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                            <input formControlName="codigo" type="text" class="form-control" placeholder="Codigo" aria-label="Example text with button addon" aria-describedby="button-addon1">
                         </div>
                         <div class="input-group input-group-lg mb-3">
                             <button class="btn btn-outline-secondary" type="button">
-                                <i class="fas fa-dollar-sign"></i>
+                                <i class="fas fa-dollar-sign"
+                                    [class.green-icon]="this.form.get('precio')?.valid"
+                                    [class.red-icon]="this.form.get('precio')?.invalid && this.form.get('precio')?.touched"></i>
                             </button>
-                            <input type="text" class="form-control" placeholder="Precio" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                            <input formControlName="precio" type="text" class="form-control" placeholder="Precio" aria-label="Example text with button addon" aria-describedby="button-addon1">
                         </div>
                         <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="button">
+                            <button [disabled]="this.form.invalid" class="btn btn-primary" type="button">
                                 <i class="fas fa-database"></i>&nbsp;Agregar producto</button>
                           </div>
                     </form>
@@ -52,7 +60,7 @@
                     <h5 class="titulo">Listar producto</h5>
                     <table class="table">
                         <tbody>
-                            <tr *ngFor="let producto of listproducto">
+                            <tr *ngFor="let producto of listproducto; let i = index">
                                 <td>{{ producto.titulo }}</td>
                                 <td>{{ producto.fechaCreacion }}</td>
                                 <td>{{ producto.codigo }}</td>
@@ -61,7 +69,7 @@
                                     <i class="far fa-edit text-info"></i>
                                 </td>
                                 <td>
-                                    <i class="far fa-trash-alt text-danger"></i>
+                                    <i (click)="eliminarProducto(i)" class="far fa-trash-alt text-danger"></i>
                                 </td>
                             </tr>
                         </tbody>
