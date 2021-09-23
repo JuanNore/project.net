@@ -43,7 +43,7 @@ export class CajaComponent implements OnInit {
     this.form.reset();
   }
 
-  eliminarTarjeta(index: number){
+  eliminarProducto(index: number){
     this.listproducto.splice(index, 1);
     this.toastr.error('El producto fue eliminado con exito!','Producto eliminado!')
   }
